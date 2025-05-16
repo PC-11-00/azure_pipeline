@@ -5,19 +5,14 @@ pool:
   name: 'Default'  # <-- replace with your agent pool name
 
 steps:
-- task: NodeTool@0
+- task: BrowserStackConfig@0
   inputs:
-    versionSpec: '20.x'  # or your preferred Node version
-  displayName: 'Install Node.js'
-
+    BrowserStackServiceEndPoint: 'new connection'
 - script: |
-    npm install
-  displayName: 'Install dependencies'
-
-- script: |
-    npm run build
-  displayName: 'Build the project'
-
-- script: |
-    npm test
-  displayName: 'Run tests'
+    npm install # or mvn install or whatever your repo uses
+    npm run test # your repo's runner command
+  displayName: 'npm install & test'
+- task: BrowserStackResults@1
+  inputs:
+    browserstackProduct: 'automate'
+- task: BrowserStackStopLocal@0
