@@ -1,0 +1,23 @@
+trigger:
+- main  # or your branch name
+
+pool:
+  name: 'Default'  # <-- replace with your agent pool name
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'  # or your preferred Node version
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+  displayName: 'Install dependencies'
+
+- script: |
+    npm run build
+  displayName: 'Build the project'
+
+- script: |
+    npm test
+  displayName: 'Run tests'
