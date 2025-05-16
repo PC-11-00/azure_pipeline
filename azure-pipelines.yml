@@ -13,16 +13,16 @@ steps:
 - script: |
     npm install
   displayName: 'Install dependencies'
-
+- task: BrowserStackConfig@0
+  inputs:
+    BrowserStackServiceEndPoint: 'Test_browserstack'
 - task: BrowserStackResults@1
   inputs:
     browserstackProduct: 'automate'
 - script: |
     npm test
   displayName: 'Run tests'
-- task: BrowserStackConfig@0
-  inputs:
-    BrowserStackServiceEndPoint: 'Test_browserstack'
+
 
 - script: |
     npm run build
